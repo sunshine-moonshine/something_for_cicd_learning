@@ -3,7 +3,7 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2.1
-commands:
+resources:
   setup_aws_credentials_test: &setup_aws_credentials_test
     run:
       name: setup aws credentials test
@@ -27,6 +27,7 @@ jobs:
       - checkout
       - run: npm install
       - run: npm test
+      - *setup_aws_credentials_test
 
   build-two:
     docker:
