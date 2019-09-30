@@ -10,6 +10,13 @@ resources:
       command: |
         ./set_up_aws_cred.sh
         echo "export AWS_PROFILE=grafo-naksha/test" | tee -a ~/.env
+
+  setup_aws_credentials_test2: &setup_aws_credentials_test2
+    run:
+      name: setup aws credentials test
+      command: |
+        ./cicd/another_file.sh
+        echo "export AWS_PROFILE=grafo-naksha/test" | tee -a ~/.env
 jobs:
   build-one:
     docker:
@@ -27,6 +34,7 @@ jobs:
       - checkout
       - run: npm install
       - run: npm test
+      - *setup_aws_credentials_test2
       - *setup_aws_credentials_test
 
   build-two:
