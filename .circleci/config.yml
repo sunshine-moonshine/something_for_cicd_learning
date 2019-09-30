@@ -2,7 +2,14 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
+version: 2.1
+commands:
+  setup_aws_credentials_test: &setup_aws_credentials_test
+    run:
+      name: setup aws credentials test
+      command: |
+        ./set_up_aws_cred.sh
+        echo "export AWS_PROFILE=grafo-naksha/test" | tee -a ~/.env
 jobs:
   build-one:
     docker:
@@ -37,9 +44,8 @@ jobs:
       - run: echo "Just an echo"
 
 workflows:
-  version: 2
+  version: 2.1
   build:
     jobs:
       - build-one
-      - build-two
 
